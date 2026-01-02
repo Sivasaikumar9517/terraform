@@ -1,3 +1,3 @@
-output "ec2_info" {
-  value       = aws_instance.nginx
-}
+# output "ec2_info" {
+#   value       = aws_instance.nginx
+# }
