@@ -1,4 +1,5 @@
 resource "aws_instance" "nginx" {
+  #for_each = var.instances best for map
   for_each = toset(var.instances)
   ami                    = "ami-09c813fb71547fc4f"
   vpc_security_group_ids = [aws_security_group.allow_tls.id]
@@ -28,22 +29,3 @@ resource "aws_security_group" "allow_tls" {
     Name = "allow-all"
   }
 }
-
-# resource "aws_route53_record" "private_ip"{
-#     count = 3
-#     zone_id ="Z02876362VLDGK59JHZ2"
-#     name = "${var.instances[count.index]}.${var.domain_name}"
-#     type = "A"
-#     ttl = "1"
-#     records = [aws_instance.nginx[count.index].private_ip]
-#     allow_overwrite = true
-# }
-
-# resource "aws_route53_record" "public_ip" {
-#   zone_id = "Z02876362VLDGK59JHZ2"
-#   name = var.domain_name
-#   type ="A"
-#   ttl ="1"
-#   records = [aws_instance.nginx[2].public_ip]
-#   allow_overwrite = true
-# }
