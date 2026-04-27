@@ -20,3 +20,14 @@ resource "aws_security_group" "allow" {
     }
 
 }
+
+resource "aws_instance" "terraform" {
+    ami = "ami-0220d79f3f480ecf5"
+    vpc_security_group_ids = [aws_security_group.allow.id]
+    instance_type = "t3.micro"
+
+    tags = {
+        Name = "terraform"
+        Terrafrom = "true"
+    }
+}
